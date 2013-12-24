@@ -1,0 +1,10 @@
+rootProject.name = "spring-configuration-sample"
+
+include "spring-application-config"
+include "spring-batch-config"
+include "spring-web-support"
+include "spring-web-mvc-config"
+include "spring-web-api-config"
+
+include "test-spring-web-config"
+include "test-spring-batch-config"
