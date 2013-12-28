@@ -10,13 +10,13 @@ public class ExampleItemReader implements ItemReader<String> {
 	
 	protected Logger log = LoggerFactory.getLogger(ExampleItemReader.class);
 	
-	private String[] input = {"Gmind1", "Gmaind2"};
+	private String[] input = {"Hello Worle!!"};
 	
 	private int index = 0;
 	
 	public String read() throws Exception {
 		if (index < input.length) {
-			log.debug("<<<<<<<<<<<<<<<<< ExampleItemReader : {}", input[index++]);
+			log.debug("<<<<<<<<<<<<<<<<< ExampleItemReader : {}", index);
 			return input[index++];
 		} else {
 			return null;

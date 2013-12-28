@@ -13,9 +13,7 @@ public class ExampleItemWriter<T> implements ItemWriter<T> {
 	protected Logger log = LoggerFactory.getLogger(ExampleItemWriter.class);
 	
 	public void write(List<? extends T> data) throws Exception {
-		for(T input : data){
-			log.debug("<<<<<<<<<<<<<<<<< ExampleItemWriter : {}", (String)input);
-		}
+		log.debug("<<<<<<<<<<<<<<<<< ExampleItemWriter : {}", data);
 	}
 
 }

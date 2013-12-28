@@ -60,7 +60,7 @@ configure(allprojects) {
 	
 	[compileJava, compileTestJava]*.options*.compilerArgs = ["-Xlint:none", "-g", "-encoding", "UTF-8"]
   
-	sourceSets.test.resources.srcDirs = ["src/test/resources", "src/test/java"]
+	sourceSets.test.resources.srcDirs = ["src/test/java", "src/test/resources"]
   
   	repositories {
 	  mavenLocal()
@@ -203,7 +203,7 @@ project("spring-web-api-config"){
 }
 
 project("test-spring-batch-config"){
-	apply plugin: 'spring-boot'
+	//apply plugin: 'spring-boot'
 	
     dependencies {
 	  // Project
@@ -211,7 +211,7 @@ project("test-spring-batch-config"){
 	  compile project(":spring-batch-config") { transitive = false }
 		
       // Spring
-      compile("org.springframework.boot:spring-boot-starter-batch:$springBootVersion") { force = true }
+      //compile("org.springframework.boot:spring-boot-starter-batch:$springBootVersion") { force = true }
 	  compile("org.springframework.data:spring-data-jpa:$springDataJpaVersion") { force=true }
 	  compile("org.springframework.data:spring-data-redis:$springDataRedisVersion") { force=true }
 	  compile("org.springframework.data:spring-data-jdbc-core:$springDataJdbcVersion") { force=true }
@@ -234,7 +234,7 @@ project("test-spring-batch-config"){
 	  
 	  // Testing
 	  testCompile("org.springframework.batch:spring-batch-test:$springBatchVersion") { force = true }
-	  testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion") { force = true }
+	  //testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion") { force = true }
     }
 
 }
