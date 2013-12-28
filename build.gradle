@@ -51,6 +51,7 @@ configure(allprojects) {
 		//Hack to let Gradle pickup latest SNAPSHOTS
 		resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 		exclude group: "commons-logging"
+		exclude module: "slf4j-log4j12"
 	  }
 	}
 	
@@ -122,9 +123,6 @@ configure(subprojects) { subproject ->
 	  compile("org.springframework:spring-tx:$springVersion") { force = true }
 	  compile("org.springframework:spring-orm:$springVersion") { force = true }
 	  compile("org.springframework:spring-jdbc:$springVersion") { force = true }
-	  compile("org.springframework:spring-web:$springVersion") { force = true }
-	  compile("org.springframework:spring-webmvc:$springVersion") { force = true }
-	  compile("org.springframework.hateoas:spring-hateoas:$springHateoasVersion") { force = true }
 	  
 	  // AspectJ
 	  compile "org.aspectj:aspectjrt:$aspectjVersion"
@@ -151,8 +149,7 @@ configure(subprojects) { subproject ->
       
 	  // Testing
       testCompile("org.springframework:spring-test:$springVersion") { force = true }
-      testRuntime("org.springframework:spring-context-support:$springVersion") { force = true }
-	}
+    }
 }
 
 project("spring-batch-config") {
@@ -179,6 +176,11 @@ project("spring-web-mvc-config"){
 	  compile project(":spring-application-config")
 	  compile project(":spring-web-support")
 	  
+	  //Spring
+	  compile("org.springframework:spring-web:$springVersion") { force = true }
+	  compile("org.springframework:spring-webmvc:$springVersion") { force = true }
+	  compile("org.springframework.hateoas:spring-hateoas:$springHateoasVersion") { force = true }
+	  
 	  // Thymeleaf
 	  compile "org.thymeleaf:thymeleaf:$thymeleafVersion"
 	  compile "org.thymeleaf:thymeleaf-spring3:$thymeleafVersion"
@@ -192,12 +194,42 @@ project("spring-web-api-config"){
 	  // Bakery
 	  compile project(":spring-application-config")
 	  compile project(":spring-web-support")	  
+	  
 	  //Spring
+	  compile("org.springframework:spring-web:$springVersion") { force = true }
+	  compile("org.springframework:spring-webmvc:$springVersion") { force = true }
+	  compile("org.springframework.hateoas:spring-hateoas:$springHateoasVersion") { force = true }
 	  compile("org.springframework.data:spring-data-rest-core:$springDataRestVersion") { force = true }
 	  compile("org.springframework.data:spring-data-commons:$springDataCommonsVersion") { force = true }
 	  compile("org.springframework.hateoas:spring-hateoas:$springHateoasVersion") { force = true }
 	  compile("org.springframework.plugin:spring-plugin-core:$springPluginVersion") { force = true }
 	}
+}
+
+project("spring-web-support"){
+	dependencies {
+	  //Spring
+	  compile("org.springframework:spring-web:$springVersion") { force = true }
+	  compile("org.springframework:spring-webmvc:$springVersion") { force = true }
+	  compile("org.springframework.hateoas:spring-hateoas:$springHateoasVersion") { force = true }
+	}
+}
+
+project("test-spring-boot-config"){
+	apply plugin: 'spring-boot'
+	
+	dependencies {
+	  // Project
+	  compile project(":spring-application-config")
+		
+	  // Spring
+	  compile("org.springframework.boot:spring-boot-starter:$springBootVersion") { force = true }
+		
+	  // Apache Commons
+	  compile "org.apache.httpcomponents:httpclient:$apacheHttpclientVersion"
+		
+	  testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion") { force = true }
+    }
 }
 
 project("test-spring-batch-config"){
@@ -252,7 +284,12 @@ project("test-spring-web-config"){
 	  compile project(":spring-application-config")
 	  compile project(":spring-web-mvc-config") 
 	  compile project(":spring-web-support") 
-		
+	  
+	  // Spring
+	  compile("org.springframework:spring-web:$springVersion") { force = true }
+	  compile("org.springframework:spring-webmvc:$springVersion") { force = true }
+	  compile("org.springframework.hateoas:spring-hateoas:$springHateoasVersion") { force = true }
+	  
 	  // Apache Commons
 	  compile "org.apache.commons:commons-lang3:$apacheCommonsLang3Version"
 	  compile "commons-io:commons-io:$apacheCommonsIOVersion"

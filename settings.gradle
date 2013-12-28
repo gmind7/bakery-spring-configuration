@@ -8,3 +8,4 @@ include "spring-web-api-config"
 
 include "test-spring-web-config"
 include "test-spring-batch-config"
+include "test-spring-boot-config"
