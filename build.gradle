@@ -51,7 +51,6 @@ configure(allprojects) {
 		//Hack to let Gradle pickup latest SNAPSHOTS
 		resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 		exclude group: "commons-logging"
-        exclude module: "slf4j-log4j12"
 	  }
 	}
 	
@@ -114,7 +113,9 @@ configure(subprojects) { subproject ->
 		
 	  // Spring
 	  compile("org.springframework:spring-core:$springVersion") { force = true }
-	  compile("org.springframework:spring-beans:$springVersion") { force = true }	 
+	  compile("org.springframework:spring-beans:$springVersion") { force = true }	
+	  compile("org.springframework:spring-context:$springVersion") { force = true }
+	  compile("org.springframework:spring-context-support:$springVersion") { force = true }
 	  compile("org.springframework:spring-aop:$springVersion") { force = true }
 	  compile("org.springframework:spring-aspects:$springVersion") { force = true }
       compile("org.springframework:spring-expression:$springVersion") { force = true }
@@ -155,7 +156,6 @@ configure(subprojects) { subproject ->
 }
 
 project("spring-batch-config") {
-    apply plugin: 'spring-boot'
     dependencies {
 	  // Bakery
 	  compile project(":spring-application-config")
@@ -164,14 +164,12 @@ project("spring-batch-config") {
       compile("org.springframework.batch:spring-batch-core:$springBatchVersion") { force = true }
       compile("org.springframework.batch:spring-batch-infrastructure:$springBatchVersion") { force = true }
       compile("org.springframework.retry:spring-retry:$springRetryVersion") { force = true }
-      compile("org.springframework.boot:spring-boot-starter:$springBootVersion") { force = true }
       
 	  // Data
 	  compile "org.apache.tomcat:tomcat-jdbc:$apacheTomcatVersion"
 	   
       // Testing
       testCompile("org.springframework.batch:spring-batch-test:$springBatchVersion") { force = true }
-      testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion") { force = true }
     }
 }
 
@@ -203,25 +201,29 @@ project("spring-web-api-config"){
 }
 
 project("test-spring-batch-config"){
-	//apply plugin: 'spring-boot'
+	apply plugin: 'application'
 	
     dependencies {
 	  // Project
-	  compile project(":spring-application-config") { transitive = false }
-	  compile project(":spring-batch-config") { transitive = false }
-		
-      // Spring
-      //compile("org.springframework.boot:spring-boot-starter-batch:$springBootVersion") { force = true }
+	  compile project(":spring-application-config") 
+	  compile project(":spring-batch-config")
+	  
+	  // Spring
+	  compile("org.springframework.batch:spring-batch-core:$springBatchVersion") { force = true }
+	  compile("org.springframework.batch:spring-batch-infrastructure:$springBatchVersion") { force = true }
+	  compile("org.springframework.retry:spring-retry:$springRetryVersion") { force = true }
+	  compile("org.springframework.boot:spring-boot-starter:$springBootVersion") { force = true }
 	  compile("org.springframework.data:spring-data-jpa:$springDataJpaVersion") { force=true }
 	  compile("org.springframework.data:spring-data-redis:$springDataRedisVersion") { force=true }
 	  compile("org.springframework.data:spring-data-jdbc-core:$springDataJdbcVersion") { force=true }
 	  
+	  // RDBMS
+	  runtime "org.hsqldb:hsqldb:$hsqldbVersion"
+	  compile "org.apache.tomcat:tomcat-jdbc:$apacheTomcatVersion"
+	  	   
 	  // Hibernate
 	  compile "org.hibernate.javax.persistence:hibernate-jpa-2.0-api:$hibernateJpaApi"
 	  compile "org.hibernate:hibernate-entitymanager:$hibernateEntityManagerVersion"
-	  
-	  // RDBMS
-	  runtime("org.hsqldb:hsqldb:$hsqldbVersion")
 	  
 	  // QueryDSL
 	  compile "com.mysema.querydsl:querydsl-core:$queryDslVersion"
@@ -234,7 +236,6 @@ project("test-spring-batch-config"){
 	  
 	  // Testing
 	  testCompile("org.springframework.batch:spring-batch-test:$springBatchVersion") { force = true }
-	  //testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion") { force = true }
     }
 
 }
@@ -248,9 +249,9 @@ project("test-spring-web-config"){
 	dependencies {
 		
 	  // Project
-	  compile project(":spring-application-config") { transitive = false }
-	  compile project(":spring-web-mvc-config")  { transitive = false }
-	  compile project(":spring-web-support")  { transitive = false }
+	  compile project(":spring-application-config")
+	  compile project(":spring-web-mvc-config") 
+	  compile project(":spring-web-support") 
 		
 	  // Apache Commons
 	  compile "org.apache.commons:commons-lang3:$apacheCommonsLang3Version"
