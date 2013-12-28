@@ -11,8 +11,9 @@ import javax.inject.Inject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.support.DomainClassConverter;
-import org.springframework.data.web.PageableArgumentResolver;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.hateoas.config.EnableEntityLinks;
@@ -41,7 +42,6 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import org.springframework.web.servlet.mvc.method.annotation.ServletWebArgumentResolverAdapter;
 
 @Configuration
 @EnableHypermediaSupport
@@ -69,8 +69,9 @@ public class WebRestConfig extends WebMvcConfigurerAdapter {
 	
 	@Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-		PageableArgumentResolver resolver = new PageableArgumentResolver();
-		argumentResolvers.add(new ServletWebArgumentResolverAdapter(resolver));
+		PageableHandlerMethodArgumentResolver resolver = new PageableHandlerMethodArgumentResolver();
+	    resolver.setFallbackPageable(new PageRequest(0, 30));
+	    argumentResolvers.add(resolver);
     }
 		
 	@Override

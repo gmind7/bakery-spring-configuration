@@ -50,9 +50,8 @@ configure(allprojects) {
 	  all {
 		//Hack to let Gradle pickup latest SNAPSHOTS
 		resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-		  
 		exclude group: "commons-logging"
-		exclude module: "slf4j-log4j12"
+        exclude module: "slf4j-log4j12"
 	  }
 	}
 	
@@ -120,6 +119,7 @@ configure(subprojects) { subproject ->
 	  compile("org.springframework:spring-aspects:$springVersion") { force = true }
       compile("org.springframework:spring-expression:$springVersion") { force = true }
 	  compile("org.springframework:spring-tx:$springVersion") { force = true }
+	  compile("org.springframework:spring-orm:$springVersion") { force = true }
 	  compile("org.springframework:spring-jdbc:$springVersion") { force = true }
 	  compile("org.springframework:spring-web:$springVersion") { force = true }
 	  compile("org.springframework:spring-webmvc:$springVersion") { force = true }
@@ -196,7 +196,7 @@ project("spring-web-api-config"){
 	  compile project(":spring-web-support")	  
 	  //Spring
 	  compile("org.springframework.data:spring-data-rest-core:$springDataRestVersion") { force = true }
-	  compile("org.springframework.data:spring-data-commons:$springDataCommonVersion") { force = true }
+	  compile("org.springframework.data:spring-data-commons:$springDataCommonsVersion") { force = true }
 	  compile("org.springframework.hateoas:spring-hateoas:$springHateoasVersion") { force = true }
 	  compile("org.springframework.plugin:spring-plugin-core:$springPluginVersion") { force = true }
 	}
@@ -207,17 +207,30 @@ project("test-spring-batch-config"){
 	
     dependencies {
 	  // Project
-	  compile project(":spring-application-config")
-	  compile project(":spring-batch-config")
+	  compile project(":spring-application-config") { transitive = false }
+	  compile project(":spring-batch-config") { transitive = false }
 		
-      // Spring Batch Common
-      compile("org.springframework.batch:spring-batch-core:$springBatchVersion") { force = true }
-      compile("org.springframework.batch:spring-batch-infrastructure:$springBatchVersion") { force = true }
-	  compile("org.springframework.retry:spring-retry:$springRetryVersion") { force = true }
-	  compile("org.springframework.boot:spring-boot-starter:$springBootVersion") { force = true }
+      // Spring
+      compile("org.springframework.boot:spring-boot-starter-batch:$springBootVersion") { force = true }
+	  compile("org.springframework.data:spring-data-jpa:$springDataJpaVersion") { force=true }
+	  compile("org.springframework.data:spring-data-redis:$springDataRedisVersion") { force=true }
+	  compile("org.springframework.data:spring-data-jdbc-core:$springDataJdbcVersion") { force=true }
 	  
-	  // Etc Supporting libraries
-	  compile "org.apache.tomcat:tomcat-juli:$apacheTomcatVersion" 
+	  // Hibernate
+	  compile "org.hibernate.javax.persistence:hibernate-jpa-2.0-api:$hibernateJpaApi"
+	  compile "org.hibernate:hibernate-entitymanager:$hibernateEntityManagerVersion"
+	  
+	  // RDBMS
+	  runtime("org.hsqldb:hsqldb:$hsqldbVersion")
+	  
+	  // QueryDSL
+	  compile "com.mysema.querydsl:querydsl-core:$queryDslVersion"
+	  compile "com.mysema.querydsl:querydsl-apt:$queryDslVersion"
+	  compile "com.mysema.querydsl:querydsl-jpa:$queryDslVersion"
+	  compile "com.mysema.querydsl:querydsl-sql:$queryDslVersion"
+	  
+	  // Apache Commons
+	  compile "org.apache.httpcomponents:httpclient:$apacheHttpclientVersion"
 	  
 	  // Testing
 	  testCompile("org.springframework.batch:spring-batch-test:$springBatchVersion") { force = true }

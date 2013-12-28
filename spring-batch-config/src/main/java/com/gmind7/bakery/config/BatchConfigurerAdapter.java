@@ -4,6 +4,7 @@ import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.batch.core.JobParametersIncrementer;
 import org.springframework.batch.core.configuration.JobRegistry;
 import org.springframework.batch.core.configuration.annotation.BatchConfigurer;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.support.JobRegistryBeanPostProcessor;
 import org.springframework.batch.core.configuration.support.MapJobRegistry;
 import org.springframework.batch.core.explore.JobExplorer;
@@ -24,6 +25,7 @@ import org.springframework.jdbc.support.lob.DefaultLobHandler;
 import org.springframework.jdbc.support.lob.LobHandler;
 import org.springframework.transaction.PlatformTransactionManager;
 
+@EnableBatchProcessing
 public abstract class BatchConfigurerAdapter implements BatchConfigurer {
 	
 	@Override

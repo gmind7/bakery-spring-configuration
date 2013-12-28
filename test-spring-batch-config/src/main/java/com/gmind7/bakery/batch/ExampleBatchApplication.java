@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ExampleBatchJobRunch {
+public class ExampleBatchApplication {
 	
 	@Autowired
 	private JobBuilderFactory jobs;
@@ -26,10 +26,16 @@ public class ExampleBatchJobRunch {
 	private StepBuilderFactory steps;
 	
 	@Autowired
-	public JobParametersIncrementer incrementer;
+	private ExampleItemReader exampleItemReader;
+	
+	@Autowired
+	private ExampleItemWriter<Object> exampleItemWriter;
+	
+	@Autowired
+	private JobParametersIncrementer incrementer;
 	
 	@Bean
-	public Job exampleJob() throws Exception {
+	protected Job exampleJob() throws Exception {
 		return jobs.get("exampleJob").
 			        incrementer(new RunIdIncrementer()).
 			        start(exampleStep()).
@@ -38,21 +44,18 @@ public class ExampleBatchJobRunch {
 
 	@Bean
 	protected Step exampleStep() throws Exception {
-		return steps.get("exampleSetp").
-			          <String, Object> chunk(1).
-			          reader(reader()).
-			          writer(writer()).
-			          build();
+		return steps.get("step").<String, Object> chunk(1).reader(reader()).writer(writer()).faultTolerant()
+                .retry(Exception.class).retryLimit(3).build();
 	}
 
 	@Bean
 	protected ItemReader<String> reader() {
-		return new ExampleItemReader();
+		return exampleItemReader;
 	}
 
 	@Bean
 	protected ItemWriter<Object> writer() {
-		return new ExampleItemWriter();
+		return exampleItemWriter;
 	}
 	
 	@Bean
@@ -64,5 +67,5 @@ public class ExampleBatchJobRunch {
 			}
         };
     }
-
+	
 }

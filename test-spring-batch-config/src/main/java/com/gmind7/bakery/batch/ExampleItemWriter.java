@@ -2,19 +2,20 @@ package com.gmind7.bakery.batch;
 
 import java.util.List;
 
-import javax.inject.Named;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.stereotype.Component;
 
-@Named
-public class ExampleItemWriter implements ItemWriter<Object> {
+@Component
+public class ExampleItemWriter<T> implements ItemWriter<T> {
 	
 	protected Logger log = LoggerFactory.getLogger(ExampleItemWriter.class);
 	
-	public void write(List<? extends Object> data) throws Exception {
-		log.debug("<<<<<<<< Spring Batch ExampleItemWriter Success");
+	public void write(List<? extends T> data) throws Exception {
+		for(T input : data){
+			log.debug("<<<<<<<<<<<<<<<<< ExampleItemWriter : {}", (String)input);
+		}
 	}
 
 }
