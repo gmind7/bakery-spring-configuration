@@ -72,7 +72,7 @@ configure(allprojects) {
 	  
     uploadArchives {
 	  repositories.mavenDeployer {
-	    repository(url: "file://F:/Git/bakery.maven.repository/release")
+	    repository(url: "file://F:/Git/gmind7.maven.repository/release")
 	  }
     }
 	
