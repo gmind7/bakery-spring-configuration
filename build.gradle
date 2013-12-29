@@ -69,6 +69,12 @@ configure(allprojects) {
 	  maven { url "http://repo.spring.io/libs-milestone" }
 	  maven { url "http://repo.spring.io/libs-snapshot" }
 	}
+	  
+    uploadArchives {
+	  repositories.mavenDeployer {
+	    repository(url: "file://F:/Git/bakery.maven.repository/release")
+	  }
+    }
 	
 	dependencies {
 	  // Logging
@@ -162,9 +168,9 @@ project("spring-batch-config") {
       compile("org.springframework.batch:spring-batch-infrastructure:$springBatchVersion") { force = true }
       compile("org.springframework.retry:spring-retry:$springRetryVersion") { force = true }
       
-	  // Data
+	  // RDBMS
 	  compile "org.apache.tomcat:tomcat-jdbc:$apacheTomcatVersion"
-	   
+	  
       // Testing
       testCompile("org.springframework.batch:spring-batch-test:$springBatchVersion") { force = true }
     }
@@ -224,10 +230,10 @@ project("test-spring-boot-config"){
 		
 	  // Spring
 	  compile("org.springframework.boot:spring-boot-starter:$springBootVersion") { force = true }
-		
-	  // Apache Commons
-	  compile "org.apache.httpcomponents:httpclient:$apacheHttpclientVersion"
-		
+	  
+	  // RDBMS
+	  compile "org.apache.tomcat:tomcat-jdbc:$apacheTomcatVersion"
+	  
 	  testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion") { force = true }
     }
 }
@@ -255,16 +261,13 @@ project("test-spring-batch-config"){
 	  	   
 	  // Hibernate
 	  compile "org.hibernate.javax.persistence:hibernate-jpa-2.0-api:$hibernateJpaApi"
-	  compile "org.hibernate:hibernate-entitymanager:$hibernateEntityManagerVersion"
+	  compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
 	  
 	  // QueryDSL
 	  compile "com.mysema.querydsl:querydsl-core:$queryDslVersion"
 	  compile "com.mysema.querydsl:querydsl-apt:$queryDslVersion"
 	  compile "com.mysema.querydsl:querydsl-jpa:$queryDslVersion"
 	  compile "com.mysema.querydsl:querydsl-sql:$queryDslVersion"
-	  
-	  // Apache Commons
-	  compile "org.apache.httpcomponents:httpclient:$apacheHttpclientVersion"
 	  
 	  // Testing
 	  testCompile("org.springframework.batch:spring-batch-test:$springBatchVersion") { force = true }
