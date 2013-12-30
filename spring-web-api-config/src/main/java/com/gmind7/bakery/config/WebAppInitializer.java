@@ -34,7 +34,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 		if (!ObjectUtils.isEmpty(rootConfigClasses)) {
 			AnnotationConfigWebApplicationContext rootAppContext = new AnnotationConfigWebApplicationContext();
 			String springProfilesActvie = rootAppContext.getEnvironment().getProperty("spring.profiles.active");
-			if(springProfilesActvie==null) rootAppContext.getEnvironment().setActiveProfiles("dev");
+			if(springProfilesActvie==null) rootAppContext.getEnvironment().setActiveProfiles("loc");
 			rootAppContext.register(rootConfigClasses);
 			return rootAppContext;
 		}
