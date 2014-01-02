@@ -46,7 +46,7 @@ public class AppConfig {
         messageSource.setBasenames(files);        
         messageSource.setDefaultEncoding("UTF-8");
         //messageSource.setAlwaysUseMessageFormat(true);
-        if (environment.acceptsProfiles("dev")) {
+        if (environment.acceptsProfiles("loc")) {
 			messageSource.setCacheSeconds(0);
 		}
         return messageSource;
