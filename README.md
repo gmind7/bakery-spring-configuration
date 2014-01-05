@@ -1,4 +1,4 @@
-# spring-configuration-sample [![Build Status](https://travis-ci.org/spring-projects/spring-boot.png?branch=master)](https://travis-ci.org/spring-projects/spring-boot)
+# spring-configuration-sample
 
 Spring Framwork을 이용한 웹, 배치, 데몬 환경에 대한 설정을 모듈 별로 재 구성한 프로젝트 입니다.
 각 모듈은 기 운영중인 Artifactory Server로 업로드 한 후 각 프로젝트 환경 특성에 맞게 dependencies 하여 사용 할 목적으로 개발 되었습니다.
