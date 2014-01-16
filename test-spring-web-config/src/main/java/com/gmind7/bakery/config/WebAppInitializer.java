@@ -1,4 +1,4 @@
-package com.gmind7.bakery.web.config;
+package com.gmind7.bakery.config;
 
 import javax.servlet.Filter;
 
