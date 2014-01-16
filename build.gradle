@@ -72,7 +72,7 @@ configure(allprojects) {
 	  
     uploadArchives {
 	  repositories.mavenDeployer {
-	    repository(url: "file://D:/Git/gmind7.maven.repository/releases")
+	    repository(url: "file://D:/Git/gmind7.maven.repository/libs-release")
 	  }
     }
 	
@@ -155,8 +155,15 @@ configure(subprojects) { subproject ->
       testCompile("org.springframework:spring-test:$springVersion") { force = true }
     }
 }
-
+project("spring-application-config") {
+	
+	version = "$bakerySpringApplicationVersion"
+	
+}
 project("spring-batch-config") {
+	
+	version = "$bakerySpringBatchVersion"
+	
     dependencies {
 	  // Bakery
 	  compile project(":spring-application-config")
@@ -175,6 +182,9 @@ project("spring-batch-config") {
 }
 
 project("spring-web-mvc-config"){
+	
+	version = "$bakerySpringWebMvcVersion"
+	
 	dependencies {
 	  // Bakery
 	  compile project(":spring-application-config")
@@ -194,6 +204,9 @@ project("spring-web-mvc-config"){
 }
 
 project("spring-web-api-config"){
+	
+	version = "$bakerySpringWebApiVersion"
+	
 	dependencies {
 	  // Bakery
 	  compile project(":spring-application-config")
@@ -207,10 +220,19 @@ project("spring-web-api-config"){
 	  compile("org.springframework.data:spring-data-commons:$springDataCommonsVersion") { force = true }
 	  compile("org.springframework.hateoas:spring-hateoas:$springHateoasVersion") { force = true }
 	  compile("org.springframework.plugin:spring-plugin-core:$springPluginVersion") { force = true }
+	  
+	  // Thymeleaf
+	  compile "org.thymeleaf:thymeleaf:$thymeleafVersion"
+	  compile "org.thymeleaf:thymeleaf-spring3:$thymeleafVersion"
+	  compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity3:$thymeleafExtrasSpringsecurity3"
+	  compile "nz.net.ultraq.web.thymeleaf:thymeleaf-layout-dialect:$thymeleafLayoutDialectVersion"
 	}
 }
 
 project("spring-web-support"){
+	
+	version = "$bakerySpringWebSupportVersion"
+	
 	dependencies {
 	  //Spring
 	  compile("org.springframework:spring-web:$springVersion") { force = true }

@@ -18,15 +18,9 @@ package com.gmind7.bakery.config;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.filter.CharacterEncodingFilter;
-import org.springframework.web.filter.HiddenHttpMethodFilter;
-import org.springframework.web.filter.ShallowEtagHeaderFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import com.gmind7.bakery.config.AppConfig;
-import com.gmind7.bakery.filter.CorsFilter;
-
-public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public abstract class AbstractWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 	
 	@Override
 	protected WebApplicationContext createRootApplicationContext() {
@@ -55,19 +49,20 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String[] { "/*" };
+		return new String[] { "/" };
 	}
 	
 	@Override
-	protected javax.servlet.Filter[] getServletFilters() {
-		CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
-		encodingFilter.setEncoding("UTF-8");
-		encodingFilter.setForceEncoding(true);
-		return new javax.servlet.Filter[] { encodingFilter, 
-											//new OpenEntityManagerInViewFilter(),
-			                                new CorsFilter(), 
-			                                new HiddenHttpMethodFilter(), 
-			                                new ShallowEtagHeaderFilter()};
-	}
+	protected abstract javax.servlet.Filter[] getServletFilters();
+//	{
+//		CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
+//		encodingFilter.setEncoding("UTF-8");
+//		encodingFilter.setForceEncoding(true);
+//		return new javax.servlet.Filter[] { encodingFilter, 
+//											//new OpenEntityManagerInViewFilter(),
+//			                                new CorsFilter(), 
+//			                                new HiddenHttpMethodFilter(), 
+//			                                new ShallowEtagHeaderFilter()};
+//	}
 	
 }

@@ -208,12 +208,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		List<View> JsonView = new ArrayList<View>();
 		
 		MappingJackson2JsonView mappingJackson2JsonView = new MappingJackson2JsonView();
-		mappingJackson2JsonView.setModelKey("result");
 		mappingJackson2JsonView.setExtractValueFromSingleKeyModel(true);
 		JsonView.add(mappingJackson2JsonView);
 		
 		MappingJackson2JsonpView mappingJackson2JsonpView = new MappingJackson2JsonpView();
-		mappingJackson2JsonpView.setModelKey("result");
 		mappingJackson2JsonpView.setExtractValueFromSingleKeyModel(true);
 		JsonView.add(mappingJackson2JsonpView);
 		
