@@ -72,7 +72,7 @@ configure(allprojects) {
 	  
     uploadArchives {
 	  repositories.mavenDeployer {
-	    repository(url: "file://D:/Git/gmind7.maven.repository/libs-releases")
+	    repository(url: "file://D:/Git/gmind7.maven.repository/lib-releases")
 	  }
     }
 	
