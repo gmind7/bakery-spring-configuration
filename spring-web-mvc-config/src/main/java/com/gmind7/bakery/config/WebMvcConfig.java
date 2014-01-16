@@ -83,7 +83,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
 		messageSource.setBasename("classpath:message/validation");
-		if (environment.acceptsProfiles("dev")) {
+		if (environment.acceptsProfiles("loc")) {
 			messageSource.setCacheSeconds(0);
 		}
 		factory.setValidationMessageSource(messageSource);
