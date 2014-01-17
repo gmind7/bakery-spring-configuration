@@ -70,8 +70,8 @@ configure(allprojects) {
 	  
     uploadArchives {
 	  repositories.mavenDeployer {
-	    repository(url: "file://D:/Git/gmind7.maven.repository/lib-releases")
-		snapshotRepository(url: "file://D:/Git/gmind7.maven.repository/lib-snapshots")
+	    repository(url: "file://D:/Git/bakery.maven.repository/lib-releases")
+		snapshotRepository(url: "file://D:/Git/bakery.maven.repository/lib-snapshots")
 	  }
     }
 	
@@ -81,7 +81,7 @@ configure(allprojects) {
 	
 	gradle.taskGraph.whenReady {taskGraph ->
 		if (taskGraph.hasTask(uploadReleaseArchives)) {
-			version += ''			
+			version += '-RELEASE'			
 		} else {
 			version += '-SNAPSHOT'
 		}
@@ -111,10 +111,6 @@ configure(subprojects) { subproject ->
 	  options.header = subproject.name
 	}
 	
-	jar {
-	  baseName = "${prefix}" + baseName
-	}
-  
 	task sourcesJar(type: Jar, dependsOn: classes) {
 	  classifier = "sources"
 	  from sourceSets.main.allJava
@@ -170,18 +166,18 @@ configure(subprojects) { subproject ->
       testCompile("org.springframework:spring-test:$springVersion") { force = true }
     }
 }
-project("spring-application-config") {
+project("bakery-spring-application-config") {
 	
 	version = "$bakerySpringApplicationVersion"
 	
 }
-project("spring-batch-config") {
+project("bakery-spring-batch-config") {
 	
 	version = "$bakerySpringBatchVersion"
 	
     dependencies {
 	  // Bakery
-	  compile project(":spring-application-config")
+	  compile project(":bakery-spring-application-config")
 		
       // Spring
       compile("org.springframework.batch:spring-batch-core:$springBatchVersion") { force = true }
@@ -196,14 +192,14 @@ project("spring-batch-config") {
     }
 }
 
-project("spring-web-mvc-config"){
+project("bakery-spring-web-mvc-config"){
 	
 	version = "$bakerySpringWebMvcVersion"
 	
 	dependencies {
 	  // Bakery
-	  compile project(":spring-application-config")
-	  compile project(":spring-web-support")
+	  compile project(":bakery-spring-application-config")
+	  compile project(":bakery-spring-web-support")
 	  
 	  //Spring
 	  compile("org.springframework:spring-web:$springVersion") { force = true }
@@ -218,14 +214,14 @@ project("spring-web-mvc-config"){
 	}
 }
 
-project("spring-web-api-config"){
+project("bakery-spring-web-api-config"){
 	
 	version = "$bakerySpringWebApiVersion"
 	
 	dependencies {
 	  // Bakery
-	  compile project(":spring-application-config")
-	  compile project(":spring-web-support")	  
+	  compile project(":bakery-spring-application-config")
+	  compile project(":bakery-spring-web-support")	  
 	  
 	  //Spring
 	  compile("org.springframework:spring-web:$springVersion") { force = true }
@@ -244,7 +240,7 @@ project("spring-web-api-config"){
 	}
 }
 
-project("spring-web-support"){
+project("bakery-spring-web-support"){
 	
 	version = "$bakerySpringWebSupportVersion"
 	
@@ -261,7 +257,7 @@ project("test-spring-boot-config"){
 	
 	dependencies {
 	  // Project
-	  compile project(":spring-application-config")
+	  compile project(":bakery-spring-application-config")
 		
 	  // Spring
 	  compile("org.springframework.boot:spring-boot-starter:$springBootVersion") { force = true }
@@ -278,8 +274,8 @@ project("test-spring-batch-config"){
 	
     dependencies {
 	  // Project
-	  compile project(":spring-application-config")
-	  compile project(":spring-batch-config")
+	  compile project(":bakery-spring-application-config")
+	  compile project(":bakery-spring-batch-config")
 	  
 	  // Spring
 	  compile("org.springframework.batch:spring-batch-core:$springBatchVersion") { force = true }
@@ -318,9 +314,9 @@ project("test-spring-web-config"){
 	
 	dependencies {
 	  // Project
-	  runtime project(":spring-application-config")
-	  runtime project(":spring-web-mvc-config")
-	  runtime project(":spring-web-support")
+	  runtime project(":bakery-spring-application-config")
+	  runtime project(":bakery-spring-web-mvc-config")
+	  runtime project(":bakery-spring-web-support")
 	  
 	  // Spring
 	  compile("org.springframework:spring-web:$springVersion") { force = true }
