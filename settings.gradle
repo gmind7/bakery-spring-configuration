@@ -1,4 +1,4 @@
-rootProject.name = "bakery-spring-infra-config"
+rootProject.name = "bakery-spring-foundation-config"
 
 include "bakery-spring-application-config"
 include "bakery-spring-batch-config"
