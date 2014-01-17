@@ -31,7 +31,7 @@ def customizePom(pom, gradleProject) {
     generatedPom.project {
       name = "Spring Configuration Template"
       description = "Gmind7 Bakery Spring Configuration Teamplte"
-      url = 'https://github.com/gmind7/spring-configuration-sample'
+      url = 'https://github.com/gmind7/bakery-spring-configuration-sample'
       organization {
         name = 'gmind7'
         url = 'http://gmind7.github.io'
@@ -44,9 +44,9 @@ def customizePom(pom, gradleProject) {
         }
       }
       scm {
-        url = 'http://github.com/gmind7/spring-configuration-sample'
-        connection = 'scm:git:git://github.com/gmind7/spring-configuration-sample'
-        developerConnection = 'scm:git:git://github.com/gmind7/spring-configuration-sample'
+        url = 'http://github.com/gmind7/bakery-spring-configuration-sample'
+        connection = 'scm:git:git://github.com/gmind7/bakery-spring-configuration-sample'
+        developerConnection = 'scm:git:git://github.com/gmind7/bakery-spring-configuration-sample'
       }
       developers {
         developer {
