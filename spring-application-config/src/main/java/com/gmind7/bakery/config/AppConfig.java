@@ -9,6 +9,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 
 @Configuration
 @ComponentScan(basePackages = "com.gmind7", excludeFilters = {@ComponentScan.Filter(Controller.class)})
+@PropertySource("classpath:environment/application.properties")
 public class AppConfig {
 	
 	public AppConfig(){

@@ -1,4 +1,4 @@
-package com.gmind7.bakery.config.annotation;
+package com.gmind7.bakery.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
